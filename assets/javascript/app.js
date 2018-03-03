@@ -62,9 +62,6 @@ $(document).ready(function () {
   $(".timer").hide();
   $("#doneButton").hide();
   $(".startGame").on("click", function () {
-
-    //$("timeLeft").on("click", run());
-    //$("#doneButton").show();
     $(".timer").show();
     $("#questions-container").show();
     $(".startGame").hide();
@@ -74,7 +71,6 @@ $(document).ready(function () {
 
 
   var number = 60;
- //$("#timeLeft").on("click", run());
 
   function decrement() {
     number--;

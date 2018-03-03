@@ -1,13 +1,7 @@
 $(document).ready(function () {
-
-
-  //position of user in quiz...aka which question are they on
   var position = 0;
-  //number of questions answered correctly
   var correct = 0;
-  //global variables for quiz
-  var progress, test, question, userChoice, allChoices, chA, chB, chC, chD;
-  //quiz questions and answers
+  var progress = 0;
   var game = {
     myQuestions: [
       {
@@ -74,39 +68,28 @@ $(document).ready(function () {
     $("#restartButton").show();
   });
   renderQuestion();
-  //function for get elementById
   function get(x) {
     return document.getElementById(x);
   }
   function renderQuestion() {
     testResult = get("#questions-container");
-    //if all questions answered
     if (position >= game.myQuestions.length) {
       testResult.innerHTML = "<h2>You got " + correct + " of " + game.myQuestions.length + " questions correct</h2><br>"
       "<br><button id=reset>Start Over</button>"
       $(".timer").hide(0);
-      //resets variables
       position = 0;
       correct = 0;
-      //stops rest of function from running if test is complete
       return false;
     }
 
-
-    //shows progress to user
-
-    //get("progress").innerHTML = "Question " + (position + 1) + " of " + myQuestions.length;
-    //}
-
-    //sets value in array of question to be asked
     question = game.myQuestions.question[position];
-    //sets value in array of answer choices
+
     chA = game.myQuestions.possible[position][0];
     chB = game.myQuestions.possible[position][1];
     chC = game.myQuestions.possible[position][2];
     chD = game.myQuestions.posible[position][3];
     answer = game.myQuestions.answer[position];
-    //displays question and answer choices and submit button
+
     test.innerHTML = "<h3>" + question + "</h3>";
     test.innerHTML += "<input type='radio' name='choices' value='0'> " + ch0 + "<br>";
     test.innerHTML += "<input type='radio' name='choices' value='1'> " + ch1 + "<br>";
@@ -114,7 +97,7 @@ $(document).ready(function () {
     test.innerHTML += "<input type='radio' name='choices' value='3'> " + ch3 + "<br><br>";
     test.innerHTML += "<button onclick='checkAnswer()'>Submit Answer</button>"
 
-    //checkAnswer();
+
     run();
     renderQuestion();
   }
@@ -125,10 +108,8 @@ $(document).ready(function () {
     $("#questions-container").html(gameHTML);
     setTimeout(2500);
   }
-  //var corAnswer = document.getElementById("test").innerHTML("Correct Answer!")
-  //checks if answer is correct
+
   function checkAnswer() {
-    //loops through array of answer choices
     choices = document.getElementsByName("possible");
     test = document.getElementById("#questions-container");
     for (var i = 0; i < choices.length; i++) {
@@ -136,21 +117,13 @@ $(document).ready(function () {
         choice = choices[i].value;
       }
     }
-    //compares user choice to correct answer if equal does the things
     if (userChoice === answer) {
-      //stop();
-      //gameHTML = "Correct! The answer is " + myQuestions[position][5] + "."
-      //increases total in correct variable
       correctAnswer();
-
-
     } else {
 
     }
-    //test.innerHTML = "<h3>Correct Answer!</h3>";
-    //changes position of user in quiz
     position++;
-    //runs renderQuestion to go to next question in quiz
+
     renderQuestion();
     resetClock();
   }
@@ -167,7 +140,6 @@ $(document).ready(function () {
     $(".timer").html("You have " + counter + " seconds left");
     if (counter === 0) {
       stop();
-      //clearInterval(intervalId);
       resetClock();
       position++;
       $(".timer").html("You have " + counter + " seconds left");
@@ -184,9 +156,7 @@ $(document).ready(function () {
     decrement();
   };
 
-  //var correctAnswer =  document.getElementById("test").innerHTML += "Correct Answer!"
 
-  //run();
   window.addEventListener("load", renderQuestion, false)
 
 

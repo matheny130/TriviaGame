@@ -15,11 +15,8 @@ body {
    background-position: center;
    background-repeat: no-repeat;
    background-size: cover;
-   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-   padding: 10px, 50px, 50px, 50px;
-   border-radius: 50px;
-   border: 2px solid #cbcbcb;
-   box-shadow: 10px, 15px, 5px, #cbcbcb;
+   border: 2px solid white;
+
  }
 
 
