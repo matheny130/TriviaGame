@@ -1,164 +1,164 @@
-$(document).ready(function () {
-  var position = 0;
-  var correct = 0;
-  var progress = 0;
-  var game = {
-    myQuestions: [
-      {
+
+var panel = $("#quiz-area");
+var countStartNumber = 15;
+var questions = [{
         question: "Who holds the record for most career passing touchdowns?",
-        possibles: ["Bernie Kosar", "Kelly Holcomb", "Otto Graham", "Brian Sipe"],
-        id: "question-one",
-        answer: 2
+        answers: ["Bernie Kosar", "Kelly Holcomb", "Otto Graham", "Brian Sipe"],
+        correctAnswer: "Otto Graham"
       }, {
         question: "Who was the coach of The Kardiac Kids?",
-        possibles: ["Marty Schottenheimer", "Sam Rutigliano", "Paul Brown", "Bill Belichick"],
-        id: "question-two",
-        answer: 1
+        answers: ["Marty Schottenheimer", "Sam Rutigliano", "Paul Brown", "Bill Belichick"],
+        correctAnswer: "Sam Rutigliano"
       }, {
         question: "What year did the Cleveland Browns go undefeated?",
-        possibles: ["1948", "1962", "1981", "2017"],
-        id: "question-three",
-        answer: 0
+        answers: ["1948", "1962", "1981", "2017"],
+        correctAnswer: "1948"
       }, {
         question: "Who is the only Cleveland Browns player to be named Defensive Rookie of the Year?",
-        possibles: ["Michael Dean Perry", "Clay Matthews", "Myles Garrett", "Chip Banks"],
-        id: "question-four",
-        answer: 3
+        answers: ["Michael Dean Perry", "Clay Matthews", "Myles Garrett", "Chip Banks"],
+        correctAnswer: "Chip Banks"
       }, {
         question: "Who holds the record for most rushing yards in a single game?",
-        possibles: ["Kevin Mack", "Jim Brown", "Jerome Harrison", "Eric Metcalf"],
-        id: "question-five",
-        answer: 2
+        answers: ["Kevin Mack", "Jim Brown", "Jerome Harrison", "Eric Metcalf"],
+        correctAnswer: "Jerome Harrison"
       }, {
         question: "Who is the man who replaced Bernie Kosar at Quarterback?",
-        possibles: ["Tom Brady", "Tim Couch", "Spergon Wynn", "Vinnie Testaverde"],
-        id: "question-six",
-        answer: 3
+        answers: ["Tom Brady", "Tim Couch", "Spergon Wynn", "Vinnie Testaverde"],
+        correctAnswer: "Vinnie Testaverde"
       }, {
         question: "What is the highest number of games the Browns have won in the regular season?",
-        possibles: ["16", "14", "12", "10"],
-        id: "question-seven",
-        answer: 1
+        answers: ["16", "14", "12", "10"],
+        correctAnswer: "14"
       }, {
         question: "Who is the only player with a statue outside First Energy Stadium?",
-        possibles: ["Jim Brown", "Lou Groza", "Otto Graham", "Johnny Manziel"],
-        id: "question-eight",
-        answer: 0
+        answers: ["Jim Brown", "Lou Groza", "Otto Graham", "Johnny Manziel"],
+        correctAnswer: "Jim Brown"
       }, {
         question: "What season did the Browns last win a playoff game?",
-        possibles: ["2017", "1988", "1994", "2002"],
-        id: "question-nine",
-        answer: 2
+        answers: ["2017", "1988", "1994", "2002"],
+        correctAnswer: "1994"
       }, {
         question: "Which university hosted the Browns first training camps from 1946-1951?",
-        possibles: ["Case Western Reserve University", "Kent State University", "The Ohio State University", "Bowling Green State University"],
-        id: "question-ten",
-        answer: 3
-      }
-    ]
-  };
+        answers: ["Case Western Reserve University", "Kent State University", "The Ohio State University", "Bowling Green State University"],
+        correctAnswer: "Bowling Green State University"
+      }];
 
-  $("#questions-container").hide();
-  $(".timer").hide();
-  $("#restartButton").hide();
-  $(".startGame").on("click", function () {
-    $(".startGame").hide();
-    $(".timer").show();
-    $("#questions-container").show();
-    $("#restartButton").show();
-  });
-  renderQuestion();
-  function get(x) {
-    return document.getElementById(x);
-  }
-  function renderQuestion() {
-    testResult = get("#questions-container");
-    if (position >= game.myQuestions.length) {
-      testResult.innerHTML = "<h2>You got " + correct + " of " + game.myQuestions.length + " questions correct</h2><br>"
-      "<br><button id=reset>Start Over</button>"
-      $(".timer").hide(0);
-      position = 0;
-      correct = 0;
-      return false;
+var timer;
+
+var game = {
+  questions: questions,
+  currentQuestion: 0,
+  counter: countStartNumber,
+  correct: 0,
+  incorrect: 0,
+
+  countdown: function () {
+    this.counter--;
+    $("#counter-number").text(this.counter);
+    if (this.counter === 0) {
+      console.log("time up");
+      this.timeUp();
     }
+  },
 
-    question = game.myQuestions.question[position];
+  loadQuestion: function () {
+    timer = setInterval(this.countdown.bind(this), 1000);
 
-    chA = game.myQuestions.possible[position][0];
-    chB = game.myQuestions.possible[position][1];
-    chC = game.myQuestions.possible[position][2];
-    chD = game.myQuestions.posible[position][3];
-    answer = game.myQuestions.answer[position];
+    panel.html("<h2>" + questions[this.currentQuestion].question + "</h2>");
 
-    test.innerHTML = "<h3>" + question + "</h3>";
-    test.innerHTML += "<input type='radio' name='choices' value='0'> " + ch0 + "<br>";
-    test.innerHTML += "<input type='radio' name='choices' value='1'> " + ch1 + "<br>";
-    test.innerHTML += "<input type='radio' name='choices' value='2'> " + ch2 + "<br>";
-    test.innerHTML += "<input type='radio' name='choices' value='3'> " + ch3 + "<br><br>";
-    test.innerHTML += "<button onclick='checkAnswer()'>Submit Answer</button>"
-
-
-    run();
-    renderQuestion();
-  }
-
-  function correctAnswer() {
-    correct++;
-    gameHTML = "<h3>Correct! The Answer is " + game.myQuestions.answer[position] + ".</h3>"
-    $("#questions-container").html(gameHTML);
-    setTimeout(2500);
-  }
-
-  function checkAnswer() {
-    choices = document.getElementsByName("possible");
-    test = document.getElementById("#questions-container");
-    for (var i = 0; i < choices.length; i++) {
-      if (choices[i].checked) {
-        choice = choices[i].value;
-      }
+    for (var i = 0; i < questions[this.currentQuestion].answers.length; i++) {
+      panel.append("<button class='answer-button' id='button' data-name='" + questions[this.currentQuestion].answers[i]
+        + "'>" + questions[this.currentQuestion].answers[i] + "</button>");
     }
-    if (userChoice === answer) {
-      correctAnswer();
-    } else {
+  },
 
+  nextQuestion: function () {
+    this.counter = window.countStartNumber;
+    $("#counter-number").text(this.counter);
+    this.currentQuestion++;
+    this.loadQuestion.bind(this)();
+  },
+
+  timeUp: function () {
+    clearInterval(window.timer);
+    $("#counter-number").text(this.counter);
+    panel.html("<h2>Out Of Time!</h2>");
+    panel.append("<br><h3>The Correct Answer was " + questions[this.currentQuestion].correctAnswer + "</h3>");
+
+    if (this.currentQuestion === questions.length - 1) {
+      setTimeout(this.results.bind(this), 1.5 * 1000);
     }
-    position++;
-
-    renderQuestion();
-    resetClock();
-  }
-  var counter = 15;
-  var intervalId;
-
-  function run() {
-    clearInterval(intervalId);
-    intervalId = setInterval(decrement, 1000);
-  }
-
-  function decrement() {
-    counter--;
-    $(".timer").html("You have " + counter + " seconds left");
-    if (counter === 0) {
-      stop();
-      resetClock();
-      position++;
-      $(".timer").html("You have " + counter + " seconds left");
-      renderQuestion();
+    else {
+      setTimeout(this.nextQuestion.bind(this), 1.5 * 1000);
     }
-  };
+  },
 
-  function stop() {
-    clearInterval(intervalId);
-  };
-  function resetClock() {
-    counter = 16;
-    run();
-    decrement();
-  };
+  results: function () {
+    clearInterval(window.timer);
+    panel.html("<h2>All done, heres how you did!</h2>");
+    $("#counter-number").text(this.counter);
+    panel.append("<h3>Correct Answers: " + this.correct + "</h3>");
+    panel.append("<h3>Incorrect Answers: " + this.incorrect + "</h3>");
+    panel.append("<h3>Unanswered: " + (questions.length - (this.incorrect + this.correct)) + "</h3>");
+    panel.append("<br><button id='start-over'>Start Over?</button>");
+  },
+
+  clicked: function (e) {
+    clearInterval(window.timer);
+    if ($(e.target).attr("data-name") === questions[this.currentQuestion].correctAnswer) {
+      this.answeredCorrectly();
+    }
+    else {
+      this.answeredIncorrectly();
+    }
+  },
+
+  answeredIncorrectly: function () {
+    this.incorrect++;
+    clearInterval(window.timer);
+    panel.html("<h2>Nope!</h2>");
+    panel.append("<br><h3>The Correct Answer was " + questions[this.currentQuestion].correctAnswer + "</h3>");
+
+    if (this.currentQuestion === questions.length - 1) {
+      setTimeout(this.results.bind(this), 1.5 * 1000);
+    }
+    else {
+      setTimeout(this.nextQuestion.bind(this), 1.5 * 1000);
+    }
+  },
+
+  answeredCorrectly: function () {
+    clearInterval(window.timer);
+    this.correct++;
+    panel.html("<h2>Correct!</h2>");
+    panel.append("<br><h3>The Answer was " + questions[this.currentQuestion].correctAnswer + "</h3>");
+
+    if (this.currentQuestion === questions.length - 1) {
+      setTimeout(this.results.bind(this), 1.5 * 1000)
+    }
+    else {
+      setTimeout(this.nextQuestion.bind(this), 1.5 * 1000);
+    }
+  },
+
+  reset: function () {
+    this.currentQuestion = 0;
+    this.counter = countStartNumber;
+    this.correct = 0;
+    this.incorrect = 0;
+    this.loadQuestion();
+  }
+};
 
 
-  window.addEventListener("load", renderQuestion, false)
+$(document).on("click", "#start-over", game.reset.bind(game));
 
-
-
+$(document).on("click", ".answer-button", function (e) {
+  game.clicked.bind(game, e)();
 });
+
+$(document).on("click", "#start", function () {
+  $("#sub-wrapper").prepend("<h2>Time Remaining <span id='counter-number'>15</span> Seconds</h2><br><br><br>");
+  game.loadQuestion.bind(game)();
+});
+
