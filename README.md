@@ -1,2 +1,2 @@
 # TriviaGame
-10 question quiz covering Cleveland Browns trivia.
+10 question quiz covering Cleveland Browns trivia. User has fifteen seconds to answer the question. The user is told whether they answered correctly or not; and if not the correct answer is displayed. At the end of the questions the user is informed of how many questions were answered correctly, incorrectly, and how many were left unaswered. The user is also provided a link to start the quiz over if they'd like.
