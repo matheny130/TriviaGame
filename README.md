@@ -7,26 +7,26 @@ Motivation
 I wanted to create a Cleveland Browns trivia game that was fun but still included a few questions that might challenge fans. 
 
 Getting Started
-Play here: https://matheny130.github.io/TriviaGame.index.html
+Play here: https://matheny130.github.io/TriviaGame/index1
 
 Screenshots
+
+Start Game
+![](/assets/images/start.jpg)
+
 Question Displays time left, question number, and highlights answers on hover.
+![](/assets/images/answer.jpg)
 
 Answer-Correct
+![](/assets/images/correct.jpg)
 
 Answer-Wrong Displays answer if answered incorrectly
+![](/assets/images/wrong.jpg)
 
 Scoreboard Final Scoreboard
+![](/assets/images/end.jpg)
 
-Technologies used
-Google Fonts
-Bootstrap
-jQuery
-Prerequisites
-- Bootstrap: visit http://getbootstrap.com/getting-started/ for the CDN and link in html
-- jQuery: visit http://code.jquery.com/ and link in html
-Built With
-Sublime Text - Text Editor
-Bootstrap- Wireframe
+
+
 Authors
-Stefanie Ding - HTML/CSS/JS - Stefanie Ding
+Mike Matheny
