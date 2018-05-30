@@ -14,7 +14,7 @@ Ten question quiz covering Cleveland Browns trivia. User has fifteen seconds to 
 **Answer-Wrong Displays answer if answered incorrectly**
 ![](/assets/images/wrong.jpg)
 
-**Scoreboard Final Scoreboard**
+**Final Scoreboard**
 ![](/assets/images/end.jpg)
 
 
